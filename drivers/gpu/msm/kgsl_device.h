@@ -663,6 +663,15 @@ static inline int kgsl_create_device_workqueue(struct kgsl_device *device)
 	return 0;
 }
 
+static inline int kgsl_state_is_awake(struct kgsl_device *device)
+{
+	if (device->state == KGSL_STATE_ACTIVE ||
+		device->state == KGSL_STATE_AWARE)
+		return true;
+	else
+		return false;
+}
+
 int kgsl_readtimestamp(struct kgsl_device *device, void *priv,
 		enum kgsl_timestamp_type type, unsigned int *timestamp);
 

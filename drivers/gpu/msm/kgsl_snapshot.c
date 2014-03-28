@@ -661,8 +661,7 @@ int kgsl_device_snapshot(struct kgsl_device *device,
 		return -ENOMEM;
 	}
 
-	BUG_ON(!kgsl_pwrctrl_isenabled(device));
-
+	BUG_ON(!kgsl_state_is_awake(device));
 	/* increment the hang count for good book keeping */
 	device->snapshot_faultcount++;
 
