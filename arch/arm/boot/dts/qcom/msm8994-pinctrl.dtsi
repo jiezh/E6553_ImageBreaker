@@ -1266,12 +1266,14 @@
 			/* default state */
 			pcie1_wake_default: pcie1_wake_default {
 				drive-strength = <2>;
-				bias-pull-down;
+				/*bias-pull-down;*/
+				bias-pull-up;	/* PULL UP for SOMC products */
 			};
 
 			pcie1_wake_sleep: pcie1_wake_sleep {
 				drive-strength = <2>;
-				bias-disable;
+				/*bias-disable;*/
+				bias-pull-up;	/* PULL UP for SOMC products */
 			};
 		};
 

@@ -94,6 +94,7 @@
 			pinctrl-1 = <&msm_gpio_42_sus>;
 			pinctrl-2 = <&msm_gpio_109_act>;
 			pinctrl-3 = <&msm_gpio_109_sus>;
+			stylus_support = <0>;
 			wakeup_gesture_support = <1>;
 			wakeup_gesture {
 				double_tap {
@@ -719,6 +720,7 @@
 			qcom,low-threshold-uamp = <2000000>;
 			qcom,high-threshold-uamp = <3000000>;
 			qcom,soc-low-threshold = <5>;
+			qcom,vph-high-threshold-uv = <3600000>;
 		};
 	};
 };
@@ -1047,7 +1049,8 @@
 	qcom,iterm-ma = <300>;
 	qcom,precharging-timeout-mins = <24>;
 	qcom,charging-timeout-mins = <768>;
-	somc,thermal-engine-fastchg-current = <3000 2500 2000 1500 1200 900 600 450 300 300 300 300 300 300 0>;
+	somc,thermal-engine-fastchg-current = <3000 2300 2000 1500 1200 900 600 450 300 300 300 300 300 300 0>;
+	somc,thermal-mitigation-usb-9v = <1600 1400 1400 1400 1400 1400 1400 1000 700 500 400 300 300 300 0>;
 	somc,usb-9v-current-max = <1600>;
 };
 

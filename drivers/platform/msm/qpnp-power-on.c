@@ -69,20 +69,20 @@
 #define QPNP_PON_PS_HOLD_RST_CTL2(base)		(base + 0x5B)
 #define QPNP_PON_WD_RST_S2_CTL(base)		(base + 0x56)
 #define QPNP_PON_WD_RST_S2_CTL2(base)		(base + 0x57)
-#ifdef SOMC_PON_ORG_IMPL
+#ifdef CONFIG_PON_SOMC_ORG
 #define QPNP_PON_SW_RESET_S2_CTL(base)		(base + 0x62)
 #define QPNP_PON_SW_RESET_S2_CTL2(base)		(base + 0x63)
 #define QPNP_PON_SW_RESET_GO(base)		(base + 0x64)
-#endif /* SOMC_PON_ORG_IMPL */
+#endif /* CONFIG_PON_SOMC_ORG */
 #define QPNP_PON_S3_SRC(base)			(base + 0x74)
 #define QPNP_PON_S3_DBC_CTL(base)		(base + 0x75)
 #define QPNP_PON_TRIGGER_EN(base)		(base + 0x80)
 #define QPNP_PON_DVDD_RB_SPARE(base)		(base + 0x8D)
 #define QPNP_PON_XVDD_RB_SPARE(base)		(base + 0x8E)
 #define QPNP_PON_SEC_ACCESS(base)		(base + 0xD0)
-#ifdef SOMC_PON_ORG_IMPL
+#ifdef CONFIG_PON_SOMC_ORG
 #define QPNP_PON_EN_UVLO(base)			(base + 0xF2)
-#endif /* SOMC_PON_ORG_IMPL */
+#endif /* CONFIG_PON_SOMC_ORG */
 
 #define QPNP_PON_SEC_UNLOCK			0xA5
 
@@ -118,7 +118,7 @@
 
 #define QPNP_PON_UVLO_DLOAD_EN		BIT(7)
 
-#ifdef SOMC_PON_ORG_IMPL
+#ifdef CONFIG_PON_SOMC_ORG
 #define QPNP_PON_DVDD_SHUTDOWN_SET		0x05
 #define QPNP_PON_SW_RESET_EN_SET		0x80
 #define QPNP_PON_SW_RESET_GO_SET		0xA5
@@ -127,7 +127,7 @@
 #define QPNP_PON_SW_RESET_GO_MASK		0xFF
 #define QPNP_PON_EN_UVLO_VOL_THRESH		0xC0
 #define QPNP_PON_EN_UVLO_MASK			0xFE
-#endif /* SOMC_PON_ORG_IMPL */
+#endif /* CONFIG_PON_SOMC_ORG */
 
 /* Ranges */
 #define QPNP_PON_S1_TIMER_MAX			10256
@@ -525,7 +525,7 @@ int qpnp_pon_trigger_config(enum pon_trigger_source pon_src, bool enable)
 }
 EXPORT_SYMBOL(qpnp_pon_trigger_config);
 
-#ifdef SOMC_PON_ORG_IMPL
+#ifdef CONFIG_PON_SOMC_ORG
 int qpnp_pon_dvdd_shutdown(void)
 {
 	struct qpnp_pon *pon = sys_reset_dev;
@@ -561,7 +561,7 @@ int qpnp_pon_dvdd_shutdown(void)
 	return rc;
 }
 EXPORT_SYMBOL(qpnp_pon_dvdd_shutdown);
-#endif /* SOMC_PON_ORG_IMPL */
+#endif /* CONFIG_PON_SOMC_ORG */
 
 /*
  * This function stores the PMIC warm reset reason register values. It also
@@ -1490,7 +1490,7 @@ static struct kernel_param_ops dload_on_uvlo_ops = {
 
 module_param_cb(dload_on_uvlo, &dload_on_uvlo_ops, &dload_on_uvlo, 0644);
 
-#ifdef SOMC_PON_ORG_IMPL
+#ifdef CONFIG_PON_SOMC_ORG
 static int qpnp_pon_debugfs_enable_uvlo_get(char *buf,
 		const struct kernel_param *kp)
 {
@@ -1561,7 +1561,7 @@ static struct kernel_param_ops enable_uvlo_ops = {
 };
 
 module_param_cb(enable_uvlo, &enable_uvlo_ops, NULL, 0644);
-#endif /* SOMC_PON_ORG_IMPL */
+#endif /* CONFIG_PON_SOMC_ORG */
 
 #if defined(CONFIG_DEBUG_FS)
 

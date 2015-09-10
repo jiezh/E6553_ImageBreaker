@@ -1957,6 +1957,10 @@ long msm_cpp_subdev_ioctl(struct v4l2_subdev *sd,
 				k_stream_buff_info.identity & 0xFFFF);
 
 		if (buff_queue_info == NULL) {
+#if defined(CONFIG_SONY_CAM_V4L2)
+			if (cmd == VIDIOC_MSM_CPP_DELETE_STREAM_BUFF)
+				goto STREAM_BUFF_END;
+#endif
 			rc = msm_cpp_add_buff_queue_entry(cpp_dev,
 				((k_stream_buff_info.identity >> 16) & 0xFFFF),
 				(k_stream_buff_info.identity & 0xFFFF));
@@ -2224,12 +2228,8 @@ STREAM_BUFF_END:
 		break;
 	}
 	case VIDIOC_MSM_CPP_IOMMU_DETACH: {
-#if defined(CONFIG_SONY_CAM_V4L2)
-		if (cpp_dev->iommu_state == CPP_IOMMU_STATE_ATTACHED) {
-#else
 		if ((cpp_dev->iommu_state == CPP_IOMMU_STATE_ATTACHED) &&
 			(cpp_dev->stream_cnt == 0)) {
-#endif
 			iommu_detach_device(cpp_dev->domain,
 				cpp_dev->iommu_ctx);
 			cpp_dev->iommu_state = CPP_IOMMU_STATE_DETACHED;
