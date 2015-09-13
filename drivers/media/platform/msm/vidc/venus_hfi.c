@@ -3140,8 +3140,6 @@ static void venus_hfi_pm_hndlr(struct work_struct *work)
 	u32 ctrl_status = 0;
 	struct venus_hfi_device *device = list_first_entry(
 			&hal_ctxt.dev_head, struct venus_hfi_device, list);
-	char msg[SUBSYS_CRASH_REASON_LEN];
-
 	if (!device) {
 		dprintk(VIDC_ERR, "%s: NULL device\n", __func__);
 		return;
@@ -3170,9 +3168,6 @@ static void venus_hfi_pm_hndlr(struct work_struct *work)
 	rc = venus_hfi_prepare_pc(device);
 	if (rc) {
 		dprintk(VIDC_ERR, "Failed to prepare for PC, rc : %d\n", rc);
-		snprintf(msg, sizeof(msg),
-			"Failed to prepare for PC, rc : %d\n", rc);
-		subsystem_crash_reason("venus", msg);
 		if (venus_hfi_halt_axi(device))
 			dprintk(VIDC_WARN,
 				"Failed to halt AXI after SYS_ERROR\n");
